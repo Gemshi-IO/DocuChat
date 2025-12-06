@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DocuChat Help</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-1: #050714;
+      --card: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #eef2ff;
+      --muted: #b8c1ff;
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.18), transparent 35%),
+                  radial-gradient(circle at 80% 0%, rgba(96, 165, 250, 0.18), transparent 30%),
+                  var(--bg-1);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(12px);
+      background: rgba(5, 7, 20, 0.75);
+      border-bottom: 1px solid var(--border);
+      z-index: 10;
+    }
+    nav {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    a { color: var(--text); }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 42px 18px 80px;
+    }
+    h1, h2, h3 {
+      font-family: "Space Grotesk", "Inter", sans-serif;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+    h1 { font-size: clamp(2rem, 4vw, 2.6rem); }
+    h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); margin-top: 24px; }
+    h3 { margin-top: 18px; }
+    p, li {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0 0 12px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    ul { padding-left: 20px; }
+    .btn {
+      display: inline-block;
+      padding: 10px 18px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 10px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+    }
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .nav-btn {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    footer {
+      margin-top: 32px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="DocuChatLogo.png" alt="DocuChat logo" />
+        DocuChat
+      </a>
+      <div style="display: flex; gap: 14px; align-items: center;">
+        <a href="index.html">Back to Home</a>
+        <a href="https://gemshi-io.github.io/Apps/GemshiApps.html">Other Apps</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <h1>DocuChat — Quick Help</h1>
+    <a href="#faq" class="btn nav-btn">FAQ →</a>
+    <div class="card">
+      <h2>What DocuChat Does</h2>
+      <ul>
+        <li>Private, on-device assistant for understanding your PDFs (no data leaves your device).</li>
+        <li>Answers questions with document-grounded citations.</li>
+        <li>Study tools: summaries, key terms, flashcards, quizzes, cram sheet, podcast-style deep dive, mind map.</li>
+      </ul>
+
+      <h2>Getting Started</h2>
+      <ol>
+        <li>Import a PDF from Files/iCloud (Document List → “Import”).</li>
+        <li>Open a document (tap) to reach the Document Hub.</li>
+        <li>Ensure status shows <strong>Ready</strong> (processing runs once per document).</li>
+        <li>Tap <strong>Start Chat</strong> to ask questions; tap <strong>Study Hub</strong> for learning tools.</li>
+      </ol>
+
+      <h2>Core Experience: Chat</h2>
+      <ul>
+        <li>Ask natural questions; responses cite the document when possible.</li>
+        <li>Request summaries, definitions, timelines, comparisons, tables, or key points.</li>
+        <li>Tables render directly in the chat UI.</li>
+        <li>Conversation history is saved per document; context trims automatically.</li>
+      </ul>
+
+      <h2>Study Tools (Document Hub → Study Hub)</h2>
+      <ul>
+        <li><strong>Key Terms:</strong> Glossary of important terms.</li>
+        <li><strong>Flashcards:</strong> Generate decks; list view to review all cards.</li>
+        <li><strong>Quiz Game:</strong> Multiple-choice questions from the document.</li>
+        <li><strong>Cram Sheet:</strong> Structured cheat sheet.</li>
+        <li><strong>Audio Deep Dive:</strong> Podcast-style dialogue.</li>
+        <li><strong>Mind Map:</strong> Visualizes relationships between concepts.</li>
+      </ul>
+
+      <h2>Privacy & Scope</h2>
+      <ul>
+        <li>100% on-device processing: text extraction, embeddings, vector search, LLM calls.</li>
+        <li>Document-grounded by default; no web data or external knowledge.</li>
+        <li>Citations point to retrieved chunks; if unsupported, the model will say so.</li>
+      </ul>
+
+      <h2>Tips for Better Answers</h2>
+      <ul>
+        <li>Be specific: include sections, topics, or page hints (“Summarize page 3”).</li>
+        <li>Ask for tables explicitly; request timelines when needed.</li>
+        <li>If answers are short, narrow the question or reference a section.</li>
+      </ul>
+
+      <h2>Known Limits</h2>
+      <ul>
+        <li>No live web lookup; offline by default.</li>
+        <li>Very large/highly formatted PDFs may truncate context.</li>
+        <li>Tables/figures as images are not parsed.</li>
+      </ul>
+
+      <h2>Troubleshooting</h2>
+      <ul>
+        <li><strong>Document not Ready:</strong> Reopen; large files take longer.</li>
+        <li><strong>Sparse answers:</strong> Be more specific or use Key Terms/Cram Sheet.</li>
+        <li><strong>Flashcards/Quiz empty:</strong> Regenerate after Ready; very short docs may not yield enough.</li>
+        <li><strong>Audio Deep Dive short:</strong> Long docs may be condensed.</li>
+      </ul>
+
+      <h2>Safety & Accuracy</h2>
+      <ul>
+        <li>Answers are grounded in your document; review critical outputs.</li>
+        <li>Citations show retrieved context; if none, treat as unverified.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="margin-top: 30px;">
+      <h2 id="faq">FAQ</h2>
+      <a href="#" class="btn nav-btn">← Help</a>
+      <h3>Does any data leave my device?</h3>
+      <p>No. Parsing, embeddings, search, and LLM calls are on-device.</p>
+      
+      <h3>Can it use web or external knowledge?</h3>
+      <p>No. The app is document-grounded and offline by default. Web lookup is not used.</p>
+      
+      <h3>Why don't I see citations on some answers?</h3>
+      <p>Most answers cite retrieved chunks. If an answer lacks clear support, the model may say it can't find it.</p>
+      
+      <h3>What if my PDF is scanned or image-only?</h3>
+      <p>Image-only PDFs aren't parsed for text. Use a text-based PDF for best results.</p>
+      
+      <h3>Tables look broken—what can I do?</h3>
+      <p>Ask for a table explicitly ("Show a cost breakdown in a table"). Complex formatting may still be simplified.</p>
+      
+      <h3>Flashcards/Quiz say empty—why?</h3>
+      <p>Ensure the document is Ready, then regenerate from Study Hub. Very short docs may not produce enough material.</p>
+      
+      <h3>Audio Deep Dive is short—why?</h3>
+      <p>For large documents, the script may be condensed to fit the model's context window.</p>
+      
+      <h3>Can I change themes?</h3>
+      <p>Yes. The app uses themed gradients and respects light/dark mode via settings.</p>
+      
+      <h3>What are the minimum system requirements?</h3>
+      <p>iOS/iPadOS 18+ or macOS 15+ with Apple silicon (for on-device CoreML and Apple Intelligence).</p>
+      
+      <h3>Why is that required?</h3>
+      <p>The app runs embeddings, vector search, and LLM generation locally; these rely on newer OS APIs and hardware acceleration.</p>
+      
+      <h3>What is "document processing"?</h3>
+      <p>Import → extract text → chunk → embed → index in SVDB. It runs once per document before chat/study tools.</p>
+      
+      <h3>Why does processing take long on large PDFs?</h3>
+      <p>More pages mean more text to chunk/embed. Complex layout/OCR-like text also slows parsing. Let it finish; it's a one-time cost.</p>
+      
+      <h3>Error: "Sorry, I couldn't generate a quick summary: The operation couldn't be completed. (DocuChat.AIServiceError error 2)"</h3>
+      <p>The model call failed (often a transient generation error). Retry; if it persists, try a shorter question or restart the app.</p>
+      
+      <h3>Other common errors and meanings</h3>
+      <ul style="margin-top: 8px;">
+        <li><code>modelNotLoaded</code>: Embedding/LLM assets weren't ready—reopen the app or ensure device meets requirements.</li>
+        <li><code>exceededContextWindowSize</code>: The request was too long—ask a shorter question or avoid combining multiple asks.</li>
+        <li><code>generationFailed</code>: The LLM rejected or hit a guardrail—rephrase to be simpler/smaller.</li>
+        <li>Empty answer with a caution: The app couldn't find supported context; try a more specific question.</li>
+      </ul>
+      
+      <h3>Why doesn't grading give marks for an answer that's generally correct?</h3>
+      <p>Grading is strictly based on the exact content found in your document. Even if your answer is broadly correct, it must match specific facts in the source material. This ensures that grading is accurate and tied only to the given document, not to general knowledge.</p>
+      
+      <h3>What happens when I delete a document?</h3>
+      <p>Deleting a document removes: the PDF file, all chat history, all study materials (flashcards, quizzes, etc.), vector embeddings, and cached thumbnails. This action cannot be undone. To delete, long-press a document in the list and select "Delete".</p>
+      
+      <h3>Can I search or sort my documents?</h3>
+      <p>Yes. Use the search bar at the top of the Document List to filter by filename. Tap the sort button (↕️) to sort by Name, Type, Date, or Last Viewed.</p>
+      
+      <h3>What are the free tier limits?</h3>
+      <p>Free users can process 3 documents (lifetime) and have 60 seconds of podcast playback per session. Pro users get unlimited documents and unlimited podcast playback.</p>
+      
+      <h3>How do I upgrade to Pro?</h3>
+      <p>When you reach the free tier limit, you'll see an upgrade prompt. You can also upgrade anytime from the Document List banner or when accessing Pro features.</p>
+      
+      <h3>Why is some shortcut chat option slow for some files?</h3>
+      <p>RAG (Retrieval-Augmented Generation) chat can be slower because it searches through document chunks, retrieves relevant content, and then generates answers. For faster responses, use direct chat questions that leverage the vector database for quick retrieval. Complex questions requiring extensive document analysis will naturally take longer.</p>
+      
+      <h3>Is background processing enabled?</h3>
+      <p>No. Background processing is not enabled, so large operations (like document processing, embedding generation, or extensive AI generation) won't continue when the app is in the background. Keep the app open during these operations to ensure they complete successfully.</p>
+
+      <h2>Free Tier & Subscriptions</h2>
+      <ul>
+        <li>Free: 3 document credits (lifetime), 60 seconds podcast per session.</li>
+        <li>Pro: Unlimited documents and podcast playback.</li>
+        <li>Upgrades via in-app purchase when limits are hit or from banners.</li>
+      </ul>
+
+      <h2>Document Management</h2>
+      <ul>
+        <li>Search and sort by Name/Type/Date/Last Viewed.</li>
+        <li>Status: New → Indexing → Ready.</li>
+        <li>Deleting removes file, chats, study materials, embeddings, thumbnails.</li>
+      </ul>
+
+      <h2>Detailed Study Tool Usage</h2>
+      <ul>
+        <li><strong>Flashcards:</strong> Swipe ✓/✗, flip, regenerate, list view, optional TTS.</li>
+        <li><strong>Quiz Game:</strong> MCQ with feedback, regenerate anytime.</li>
+        <li><strong>The Grader:</strong> Grades against document facts with rubric-aligned feedback.</li>
+        <li><strong>Audio Deep Dive:</strong> Host/Expert dialogue; transcript highlights.</li>
+        <li><strong>Cram Sheet:</strong> Summary, themes, definitions, dates, figures, stats, quotes.</li>
+        <li><strong>Mind Map:</strong> Tap nodes to explore connections; zoom and pan.</li>
+      </ul>
+
+      <h2>Performance Tips</h2>
+      <ul>
+        <li>Use text-based PDFs; let processing finish.</li>
+        <li>Break down large asks; complex formatting may simplify.</li>
+        <li>On-device AI uses battery; charge during long sessions.</li>
+      </ul>
+
+      <h2>Other Notes</h2>
+      <ul>
+        <li>Credits used when you start Chat/Study on a new doc.</li>
+        <li>Background processing not enabled; keep app open for long tasks.</li>
+        <li>Clear chat history from Chat View (does not remove processing).</li>
+      </ul>
+    </div>
+
+    <footer>© DocuChat. All rights reserved.</footer>
+  </main>
+</body>
+</html>
+

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DocuChat Privacy Policy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-1: #050714;
+      --bg-2: #0b1028;
+      --card: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #eef2ff;
+      --muted: #b8c1ff;
+      --accent: linear-gradient(120deg, #7c3aed, #60a5fa);
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.18), transparent 35%),
+                  radial-gradient(circle at 80% 0%, rgba(96, 165, 250, 0.18), transparent 30%),
+                  var(--bg-1);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(12px);
+      background: rgba(5, 7, 20, 0.75);
+      border-bottom: 1px solid var(--border);
+      z-index: 10;
+    }
+    nav {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    a {
+      color: var(--text);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 42px 18px 80px;
+    }
+    h1, h2, h3 {
+      font-family: "Space Grotesk", "Inter", sans-serif;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+    h1 { font-size: clamp(2rem, 4vw, 2.6rem); }
+    h2 { font-size: clamp(1.5rem, 3vw, 1.9rem); margin-top: 28px; }
+    p, li {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0 0 12px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.08);
+      font-weight: 600;
+    }
+    footer {
+      margin-top: 40px;
+      color: var(--muted);
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="DocuChatLogo.png" alt="DocuChat logo" />
+        DocuChat
+      </a>
+      <div style="display: flex; gap: 14px; align-items: center;">
+        <a href="index.html">Back to Home</a>
+        <a href="https://gemshi-io.github.io/Apps/GemshiApps.html">Other Apps</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="tag">Privacy Policy · Last updated: December 7, 2025</div>
+    <h1>Your privacy is the product.</h1>
+    <div class="card">
+      <p>Your privacy is important to us. DocuChat does not collect, store, or share any personal data. No user information is tracked or shared with third parties. During premium subscription purchases, Apple may collect certain information as outlined in Apple’s privacy policy.</p>
+      <h2>Data Processing</h2>
+      <p><strong>100% On-Device Processing:</strong> All document processing, including text extraction, AI embeddings, vector search, and language model generation, happens entirely on your device. Your documents and conversations never leave your device.</p>
+      <p><strong>Local Storage Only:</strong> Documents you import are stored securely in the app's sandboxed storage on your device. Chat history, study materials (flashcards, quizzes, etc.), and all other data remain local to your device.</p>
+      <p><strong>No Network Calls:</strong> DocuChat does not make any network requests for AI processing. There are no cloud services, no data transmission, and no external servers involved in document analysis or chat functionality.</p>
+
+      <h2>Subscriptions</h2>
+      <p>The app offers a premium subscription to unlock additional features (unlimited document processing and unlimited podcast playback). All transactions are securely processed through Apple's in-app purchase system, and we do not have access to your payment information.</p>
+
+      <h2>Your Rights</h2>
+      <p>Although we do not collect any personal data, you have the right to request access to or deletion of your personal data if it were to be collected. For any questions regarding this privacy policy, feel free to contact us.</p>
+
+      <h2>Contact</h2>
+      <p>For privacy-related inquiries: <a href="mailto:gemshi@me.com">gemshi@me.com</a></p>
+
+      <p><strong>In a nutshell:</strong> Your documents, your conversations, and your data stay on your device. We're not interested in your personal information; we're here to provide you with a great, private document assistant experience!</p>
+      <footer>© DocuChat. All rights reserved.</footer>
+    </div>
+  </main>
+</body>
+</html>
+

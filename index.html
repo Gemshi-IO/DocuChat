@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DocuChat — Private, On-Device AI for Your Documents</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-1: #050714;
+      --bg-2: #0b1028;
+      --card: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #eef2ff;
+      --muted: #b8c1ff;
+      --accent: linear-gradient(120deg, #10b981, #06b6d4);
+      --accent-solid: #10b981;
+      --success: #34d399;
+      --warn: #fbbf24;
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
+
+    body.daylight {
+      --bg-1: #f8fafc;
+      --bg-2: #eef2ff;
+      --card: rgba(255, 255, 255, 0.75);
+      --border: rgba(15, 23, 42, 0.08);
+      --text: #0b1028;
+      --muted: #475569;
+      --accent: linear-gradient(120deg, #14b8a6, #06b6d4);
+      --accent-solid: #14b8a6;
+      --shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.18), transparent 35%),
+                  radial-gradient(circle at 80% 0%, rgba(96, 165, 250, 0.18), transparent 30%),
+                  radial-gradient(circle at 50% 70%, rgba(16, 185, 129, 0.12), transparent 32%),
+                  var(--bg-1);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .mesh {
+      position: fixed;
+      inset: -20%;
+      background: radial-gradient(circle at 30% 40%, rgba(124, 58, 237, 0.25), transparent 35%),
+                  radial-gradient(circle at 70% 20%, rgba(14, 165, 233, 0.25), transparent 30%),
+                  radial-gradient(circle at 50% 70%, rgba(236, 72, 153, 0.2), transparent 30%);
+      filter: blur(80px);
+      opacity: 0.6;
+      z-index: -2;
+      animation: float 18s ease-in-out infinite alternate;
+    }
+
+    .gradient-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(40px, -40px, 0); }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(5, 7, 20, 0.65);
+      border-bottom: 1px solid var(--border);
+    }
+
+    body.daylight header {
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      object-fit: cover;
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.24);
+      box-shadow: var(--shadow);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+      align-items: center;
+      margin-top: 48px;
+    }
+
+    h1 {
+      font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      margin: 12px 0;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      margin: 0 0 12px 0;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 12px;
+    }
+
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(124, 58, 237, 0.28), transparent 40%),
+                  radial-gradient(circle at 70% 60%, rgba(96, 165, 250, 0.22), transparent 45%);
+      opacity: 0.7;
+      pointer-events: none;
+      filter: blur(20px);
+    }
+
+    .list-inline {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 16px 0 0;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      font-size: 0.95rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .section {
+      margin: 80px 0 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card .glow {
+      opacity: 0.45;
+    }
+
+    .section-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .section-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      background: var(--card);
+    }
+
+    body.daylight .section-icon {
+      filter: invert(1);
+    }
+
+    .card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.08);
+      padding: 7px;
+    }
+
+    body.daylight .card-icon {
+      filter: invert(1);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.06);
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .card-head .pill {
+      margin: 0;
+      flex-shrink: 0;
+    }
+
+    .card-head h3 {
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 18px 0;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .table th,
+    .table td {
+      padding: 14px 16px;
+      text-align: left;
+    }
+
+    .table th {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+    }
+
+    .table tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .faq details {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin: 10px 0;
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+    }
+
+    .faq summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .faq p {
+      margin-top: 8px;
+      color: var(--muted);
+    }
+
+    .requirements {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .req-card {
+      border: 1px solid var(--border);
+      background: var(--card);
+      padding: 16px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .mock {
+      height: 220px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, rgba(124, 58, 237, 0.22), rgba(96, 165, 250, 0.18));
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .mock::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(60deg, rgba(255, 255, 255, 0.12), transparent);
+    }
+
+    .cta {
+      text-align: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      margin-top: 40px;
+      box-shadow: var(--shadow);
+    }
+
+    footer {
+      margin: 60px 0 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .tagline {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .note {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 640px) {
+      nav {
+        padding: 14px;
+      }
+      .hero {
+        margin-top: 24px;
+      }
+      .card, .hero-card {
+        padding: 16px;
+      }
+      .actions {
+        width: 100%;
+      }
+      .actions .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="mesh"></div>
+  <div class="gradient-overlay"></div>
+  <header>
+    <nav>
+      <a class="brand" href="#">
+        <img class="brand-logo" src="DocuChatLogo.png" alt="DocuChat logo" />
+        DocuChat
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="help.html">Help</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="eula.html">EULA</a>
+        <a href="https://gemshi-io.github.io/Apps/GemshiApps.html">Other Apps</a>
+      </div>
+      <div class="actions">
+        <button class="btn theme-toggle" id="themeToggle" aria-label="Toggle theme">🌗</button>
+        <a class="btn" href="#download">Download</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div>
+        <div class="badge">100% On-Device · Powered by Apple Intelligence + CoreML</div>
+        <h1>Your documents. Your privacy. Your AI.</h1>
+        <p>DocuChat is a private, on-device AI assistant that lets you chat with PDFs, generate study guides, and listen to audio deep dives — without a single byte leaving your device.</p>
+        <div class="list-inline">
+          <a class="btn primary" href="#download">Start Free</a>
+          <a class="btn primary" href="#privacy">See how privacy works</a>
+        </div>
+        <div class="tagline">
+          <span class="chip">No tracking. No uploads.</span>
+          <span class="chip">Citations for answer</span>
+          <span class="chip">Markdown tables in chat</span>
+          <span class="chip">Persistent chat per doc</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="glow"></div>
+        <h3>Live Preview</h3>
+        <p class="muted">Ask, cite, and study in one private workspace.</p>
+        <div class="card" style="margin-top: 10px;">
+          <div class="pill">Chat · PDF</div>
+          <p style="color: var(--text); margin-top: 8px;">"Summarize section 2 and give 3 key takeaways as a table."</p>
+          <div class="divider"></div>
+          <div class="card" style="background: rgba(124, 58, 237, 0.14); border-color: rgba(255,255,255,0.1);">
+            <p style="margin: 0; color: var(--text); font-weight: 600;">DocuChat</p>
+            <p class="muted">Here’s a quick summary plus a markdown table of the takeaways:</p>
+            <div class="card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.08); font-size: 0.95rem;">
+              <p style="margin: 0 0 6px; color: var(--text); font-weight: 600;">Top 3 takeaways</p>
+              <div style="overflow-x: auto;">
+                <table class="table" style="min-width: 360px;">
+                  <tr><th>Takeaway</th><th>Why it matters</th><th>Citation</th></tr>
+                  <tr><td>On-device embeddings</td><td>No cloud data ever leaves</td><td>p. 4</td></tr>
+                  <tr><td>Flashcard-ready highlights</td><td>Instant study prep</td><td>p. 6</td></tr>
+                  <tr><td>Audio Deep Dive</td><td>Podcast the dense parts</td><td>p. 8</td></tr>
+                </table>
+              </div>
+              <p class="muted" style="margin-top: 10px;">Cited snippets are pinned for you in chat history.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="section-title">
+        <img class="section-icon" src="Images/brain.filled.head.profile.png" alt="Study Hub" />
+        <h2 style="margin: 0;">Study Hub</h2>
+      </div>
+      <p class="muted">On-device study tools inspired by the app’s UI - fast, private, and ready for any document.</p>
+      <div class="grid">
+        <div class="card">
+          <div class="glow"></div>
+          <div class="card-head">
+            <img class="card-icon" src="Images/book.closed.fill.png" alt="Key Terms icon" />
+            <div>
+              <div class="pill">Key Terms</div>
+              <h3>Explore important terms</h3>
+            </div>
+          </div>
+          <p>Surface definitions and anchor concepts instantly, with citations pinned to your document.</p>
+        </div>
+        <div class="card">
+          <div class="glow"></div>
+          <div class="card-head">
+            <img class="card-icon" src="Images/rectangle.on.rectangle.angled.png" alt="Flashcards icon" />
+            <div>
+              <div class="pill">Flashcards</div>
+              <h3>Test your memory</h3>
+            </div>
+          </div>
+          <p>Generate flashcards automatically and keep them tied to each document’s persistent chat.</p>
+        </div>
+        <div class="card">
+          <div class="glow"></div>
+          <div class="card-head">
+            <img class="card-icon" src="Images/gamecontroller.fill.png" alt="Quiz Game icon" />
+            <div>
+              <div class="pill">Quiz Game</div>
+              <h3>Challenge yourself</h3>
+            </div>
+          </div>
+          <p>Turn sections into quick quizzes to reinforce learning without leaving your private workspace.</p>
+        </div>
+        <div class="card">
+          <div class="glow"></div>
+          <div class="card-head">
+            <img class="card-icon" src="Images/pencil.and.list.clipboard.png" alt="Grader icon" />
+            <div>
+              <div class="pill">The Grader</div>
+              <h3>AI-powered grading</h3>
+            </div>
+          </div>
+          <p>Assess essays and short answers with rubric alignment and inline suggestions — all on-device.</p>
+        </div>
+        <div class="card">
+          <div class="glow"></div>
+          <div class="card-head">
+            <img class="card-icon" src="Images/headphones.png" alt="Audio Deep Dive icon" />
+            <div>
+              <div class="pill">Audio Deep Dive</div>
+              <h3>Podcast dense sections</h3>
+            </div>
+          </div>
+          <p>Transform dense sections into an engaging podcast-style listen for commute-friendly study.</p>
+        </div>
+        <div class="card">
+          <div class="glow"></div>
+          <div class="card-head">
+            <img class="card-icon" src="Images/network.png" alt="Mind Map icon" />
+            <div>
+              <div class="pill">Mind Map</div>
+              <h3>Visualize relationships</h3>
+            </div>
+          </div>
+          <p>Create quick mind maps to connect ideas and keep concepts organized with your citations.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="privacy">
+      <div class="hero">
+        <div>
+          <div class="badge">Your Privacy, Protected</div>
+          <h2>100% on-device. No tracking. No uploads.</h2>
+          <p>DocuChat runs on Apple Intelligence Foundation Models and CoreML. Text extraction, embeddings, vector search, and LLM responses all stay on your iPhone, iPad, or Mac.</p>
+          <div class="list-inline">
+            <span class="chip">Local vector search</span>
+            <span class="chip">No telemetry</span>
+            <span class="chip">Opt-outless privacy</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="glow"></div>
+          <h3>Security at every step</h3>
+          <ul class="muted" style="padding-left: 18px; line-height: 1.6;">
+            <li>All processing local - zero cloud calls</li>
+            <li>Per-document encrypted chat history</li>
+            <li>On-device citations and highlighting</li>
+            <li>Offline mode for sensitive work</li>
+            <li>Permissions-light: no contacts, no analytics SDKs</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="requirements">
+      <h2>Device requirements</h2>
+      <p class="muted">Optimized for Apple silicon and the latest OS releases.</p>
+      <div class="requirements">
+        <div class="req-card">
+          <h3>iPhone</h3>
+          <p>iPhone 15 Pro or newer</p>
+          <p class="muted">iOS 18+</p>
+        </div>
+        <div class="req-card">
+          <h3>iPad</h3>
+          <p>M-series iPad</p>
+          <p class="muted">iPadOS 18+</p>
+        </div>
+        <div class="req-card">
+          <h3>Mac</h3>
+          <p>Mac with Apple silicon</p>
+          <p class="muted">macOS 15+</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="screens">
+      <h2>Screens you’ll love</h2>
+      <p class="muted">Glassmorphic UI, vibrant gradients, and smooth motion tuned for accessibility.</p>
+      <div class="screenshots">
+        <div class="mock"></div>
+        <div class="mock"></div>
+        <div class="mock"></div>
+      </div>
+      <p class="note">Add your actual app screens here — hero chat, study suite, and audio mode.</p>
+    </section>
+
+    <section class="section" id="faq">
+      <h2>FAQ</h2>
+      <div class="faq">
+        <details>
+          <summary>Is any data sent to the cloud?</summary>
+          <p>No. All text extraction, embeddings, vector search, and LLM responses run locally using Apple Intelligence Foundation Models and CoreML.</p>
+        </details>
+        <details>
+          <summary>Which files are supported?</summary>
+          <p>PDF, TXT, Markdown, and CSV are supported at launch. Markdown tables render directly in chat.</p>
+        </details>
+        <details>
+          <summary>How do citations work?</summary>
+          <p>Every answer includes pinned citations that jump to the exact lines in your document. They stay inside your per-document chat history.</p>
+        </details>
+        <details>
+          <summary>Can I use DocuChat offline?</summary>
+          <p>Yes. Once installed, DocuChat works fully offline, ideal for sensitive research and travel.</p>
+        </details>
+        <details>
+          <summary>What devices are supported?</summary>
+          <p>iPhone 15 Pro+, M-series iPads, and Macs with Apple silicon running iOS/iPadOS 18+ or macOS 15+.</p>
+        </details>
+      </div>
+      <p style="margin-top: 20px; text-align: center;">
+        <a href="help.html#faq" style="color: var(--text); text-decoration: underline;">More FAQ →</a>
+      </p>
+    </section>
+
+    <section class="cta" id="download">
+      <h2>Ready to keep your documents private?</h2>
+      <p class="muted">Download DocuChat and experience secure, on-device AI for study and research.</p>
+      <div class="list-inline" style="justify-content: center;">
+        <a class="btn primary" href="#">App Store (iOS / iPadOS)</a>
+      </div>
+      <p class="note" style="margin-top: 12px;">No account required. Start free - upgrade anytime.</p>
+    </section>
+
+    <footer>
+      <p>
+        DocuChat · Privacy-first document AI ·
+        <a href="help.html" style="color: var(--text);">Help</a> ·
+        <a href="privacy.html" style="color: var(--text);">Privacy Policy</a> ·
+        <a href="eula.html" style="color: var(--text);">EULA</a> ·
+        <a href="https://gemshi-io.github.io/Apps/GemshiApps.html" style="color: var(--text);">Other Apps</a>
+      </p>
+    </footer>
+  </main>
+
+  <script>
+    // Simple theme toggle between Nebula (default) and Daylight.
+    const toggle = document.getElementById("themeToggle");
+    const body = document.body;
+    toggle.addEventListener("click", () => {
+      body.classList.toggle("daylight");
+      toggle.textContent = body.classList.contains("daylight") ? "☀️" : "🌗";
+    });
+  </script>
+</body>
+</html>
