@@ -150,6 +150,7 @@
         <li>Request summaries, definitions, timelines, comparisons, tables, or key points.</li>
         <li>Tables render directly in the chat UI.</li>
         <li>Conversation history is saved per document; context trims automatically.</li>
+        <li><strong>Use built in General Knowledge:</strong> Toggle this option to relax document context restrictions. When enabled, if the app cannot find relevant information in your document, it will use general knowledge to provide answers.</li>
       </ul>
 
       <h2>Study Tools (Document Hub → Study Hub)</h2>
@@ -166,6 +167,7 @@
       <ul>
         <li>100% on-device processing: text extraction, embeddings, vector search, LLM calls.</li>
         <li>Document-grounded by default; no web data or external knowledge.</li>
+        <li>You can enable the "Use built in General Knowledge" toggle to allow general knowledge when document context is insufficient.</li>
         <li>Citations point to retrieved chunks; if unsupported, the model will say so.</li>
       </ul>
 
@@ -205,7 +207,10 @@
       <p>No. Parsing, embeddings, search, and LLM calls are on-device.</p>
       
       <h3>Can it use web or external knowledge?</h3>
-      <p>No. The app is document-grounded and offline by default. Web lookup is not used.</p>
+      <p>By default, the app is document-grounded and offline. However, you can enable the "Use built in General Knowledge" toggle in chat to allow the app to use general knowledge when it cannot find relevant information in your document. Web lookup is not used.</p>
+      
+      <h3>What is the "Use built in General Knowledge" toggle?</h3>
+      <p>This toggle option in chat relaxes the document context restriction. When enabled, if the app cannot find relevant information in your document, it will use its built-in general knowledge to provide answers. When disabled (default), the app will only use information from your document and may indicate when it cannot find relevant content.</p>
       
       <h3>Why don't I see citations on some answers?</h3>
       <p>Most answers cite retrieved chunks. If an answer lacks clear support, the model may say it can't find it.</p>
@@ -308,7 +313,14 @@
       </ul>
     </div>
 
-    <footer>© DocuChat. All rights reserved.</footer>
+    <footer>
+      <p>© DocuChat. All rights reserved.</p>
+      <div style="margin-top: 20px; display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="eula.html">EULA</a>
+      </div>
+    </footer>
   </main>
 </body>
 </html>

@@ -258,13 +258,13 @@
     }
 
     .chip {
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text);
+      padding: 0;
+      border-radius: 0;
+      border: none;
+      background: transparent;
+      color: var(--muted);
       font-size: 0.95rem;
-      backdrop-filter: blur(10px);
+      backdrop-filter: none;
     }
 
     .section {
@@ -328,15 +328,18 @@
     }
 
     .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.06);
-      font-size: 0.85rem;
-      color: var(--text);
+      display: inline-block;
+      padding: 4px 0;
+      border-radius: 0;
+      border: none;
+      border-bottom: 2px solid var(--accent-solid);
+      background: transparent;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-solid);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
     }
 
     .card-head {
@@ -427,6 +430,21 @@
       gap: 14px;
     }
 
+    .screenshot {
+      width: 100%;
+      height: auto;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      object-fit: cover;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .screenshot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.45);
+    }
+
     .mock {
       height: 220px;
       border-radius: 18px;
@@ -467,9 +485,16 @@
 
     .tagline {
       display: flex;
-      gap: 12px;
+      gap: 16px;
       flex-wrap: wrap;
       margin-top: 12px;
+    }
+
+    .tagline .chip:not(:last-child)::after {
+      content: "·";
+      margin-left: 16px;
+      color: var(--muted);
+      opacity: 0.5;
     }
 
     .note {
@@ -525,7 +550,7 @@
       <div>
         <div class="badge">100% On-Device · Powered by Apple Intelligence + CoreML</div>
         <h1>Your documents. Your privacy. Your AI.</h1>
-        <p>DocuChat is a private, on-device AI assistant that lets you chat with PDFs, generate study guides, and listen to audio deep dives — without a single byte leaving your device.</p>
+        <p>DocuChat is a private, on-device AI assistant that lets you chat with PDFs, generate study guides, and listen to audio deep dives, without a single byte leaving your device.</p>
         <div class="list-inline">
           <a class="btn primary" href="#download">Start Free</a>
           <a class="btn primary" href="#privacy">See how privacy works</a>
@@ -539,26 +564,29 @@
       </div>
       <div class="hero-card">
         <div class="glow"></div>
-        <h3>Live Preview</h3>
-        <p class="muted">Ask, cite, and study in one private workspace.</p>
-        <div class="card" style="margin-top: 10px;">
-          <div class="pill">Chat · PDF</div>
-          <p style="color: var(--text); margin-top: 8px;">"Summarize section 2 and give 3 key takeaways as a table."</p>
-          <div class="divider"></div>
-          <div class="card" style="background: rgba(124, 58, 237, 0.14); border-color: rgba(255,255,255,0.1);">
-            <p style="margin: 0; color: var(--text); font-weight: 600;">DocuChat</p>
-            <p class="muted">Here’s a quick summary plus a markdown table of the takeaways:</p>
-            <div class="card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.08); font-size: 0.95rem;">
-              <p style="margin: 0 0 6px; color: var(--text); font-weight: 600;">Top 3 takeaways</p>
+        <h3 style="margin-top: 0;">Live Preview</h3>
+        <p class="muted" style="margin-bottom: 16px;">Ask, cite, and study in one private workspace.</p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <div class="pill" style="font-size: 0.8rem; padding: 4px 8px;">Chat · PDF</div>
+          </div>
+          <div style="background: rgba(96, 165, 250, 0.15); border-left: 3px solid rgba(96, 165, 250, 0.5); padding: 12px 14px; border-radius: 12px; margin-left: auto; max-width: 85%;">
+            <p style="margin: 0; color: var(--text); font-size: 0.9rem; line-height: 1.4;">"Summarize section 2 and give 3 key takeaways as a table."</p>
+          </div>
+          <div style="background: rgba(124, 58, 237, 0.12); border-left: 3px solid rgba(124, 58, 237, 0.5); padding: 14px; border-radius: 12px; max-width: 90%;">
+            <p style="margin: 0 0 8px; color: var(--text); font-weight: 600; font-size: 0.85rem; opacity: 0.9;">DocuChat</p>
+            <p class="muted" style="margin: 0 0 12px; font-size: 0.9rem; line-height: 1.5;">Here's a quick summary plus a markdown table of the takeaways:</p>
+            <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 12px; font-size: 0.85rem;">
+              <p style="margin: 0 0 10px; color: var(--text); font-weight: 600; font-size: 0.9rem;">Top 3 takeaways</p>
               <div style="overflow-x: auto;">
-                <table class="table" style="min-width: 360px;">
-                  <tr><th>Takeaway</th><th>Why it matters</th><th>Citation</th></tr>
-                  <tr><td>On-device embeddings</td><td>No cloud data ever leaves</td><td>p. 4</td></tr>
-                  <tr><td>Flashcard-ready highlights</td><td>Instant study prep</td><td>p. 6</td></tr>
-                  <tr><td>Audio Deep Dive</td><td>Podcast the dense parts</td><td>p. 8</td></tr>
+                <table class="table" style="min-width: 320px; font-size: 0.85rem;">
+                  <tr><th style="font-size: 0.8rem; padding: 8px 10px;">Takeaway</th><th style="font-size: 0.8rem; padding: 8px 10px;">Why it matters</th><th style="font-size: 0.8rem; padding: 8px 10px;">Citation</th></tr>
+                  <tr><td style="padding: 8px 10px;">On-device embeddings</td><td style="padding: 8px 10px;">No cloud data ever leaves</td><td style="padding: 8px 10px;">p. 4</td></tr>
+                  <tr><td style="padding: 8px 10px;">Flashcard-ready highlights</td><td style="padding: 8px 10px;">Instant study prep</td><td style="padding: 8px 10px;">p. 6</td></tr>
+                  <tr><td style="padding: 8px 10px;">Audio Deep Dive</td><td style="padding: 8px 10px;">Podcast the dense parts</td><td style="padding: 8px 10px;">p. 8</td></tr>
                 </table>
               </div>
-              <p class="muted" style="margin-top: 10px;">Cited snippets are pinned for you in chat history.</p>
+              <p class="muted" style="margin: 10px 0 0; font-size: 0.8rem;">Cited snippets are pinned for you in chat history.</p>
             </div>
           </div>
         </div>
@@ -674,30 +702,34 @@
         <div class="req-card">
           <h3>iPhone</h3>
           <p>iPhone 15 Pro or newer</p>
-          <p class="muted">iOS 18+</p>
+          <p class="muted">iOS 26+</p>
         </div>
         <div class="req-card">
           <h3>iPad</h3>
           <p>M-series iPad</p>
-          <p class="muted">iPadOS 18+</p>
+          <p class="muted">iPadOS 26+</p>
         </div>
         <div class="req-card">
           <h3>Mac</h3>
           <p>Mac with Apple silicon</p>
-          <p class="muted">macOS 15+</p>
+          <p class="muted">macOS 26+</p>
         </div>
       </div>
     </section>
 
     <section class="section" id="screens">
-      <h2>Screens you’ll love</h2>
+      <h2>Screens you'll love</h2>
       <p class="muted">Glassmorphic UI, vibrant gradients, and smooth motion tuned for accessibility.</p>
       <div class="screenshots">
-        <div class="mock"></div>
-        <div class="mock"></div>
-        <div class="mock"></div>
+        <img src="Images/Frame1.jpeg" alt="DocuChat screenshot 1" class="screenshot" />
+        <img src="Images/Frame2.jpeg" alt="DocuChat screenshot 2" class="screenshot" />
+        <img src="Images/Frame3.jpeg" alt="DocuChat screenshot 3" class="screenshot" />
+        <img src="Images/Frame4.jpeg" alt="DocuChat screenshot 4" class="screenshot" />
+        <img src="Images/Frame5.jpeg" alt="DocuChat screenshot 5" class="screenshot" />
+        <img src="Images/Frame6.jpeg" alt="DocuChat screenshot 6" class="screenshot" />
+        <img src="Images/Frame7.jpeg" alt="DocuChat screenshot 7" class="screenshot" />
+        <img src="Images/Frame8.jpeg" alt="DocuChat screenshot 8" class="screenshot" />
       </div>
-      <p class="note">Add your actual app screens here — hero chat, study suite, and audio mode.</p>
     </section>
 
     <section class="section" id="faq">
@@ -712,8 +744,8 @@
           <p>PDF, TXT, Markdown, and CSV are supported at launch. Markdown tables render directly in chat.</p>
         </details>
         <details>
-          <summary>How do citations work?</summary>
-          <p>Every answer includes pinned citations that jump to the exact lines in your document. They stay inside your per-document chat history.</p>
+          <summary>What is Audio Deep Dive (Podcast Mode)?</summary>
+          <p>Transform dense document sections into an engaging podcast-style dialogue between a host and expert. Perfect for learning on the go—listen while commuting, exercising, or multitasking.</p>
         </details>
         <details>
           <summary>Can I use DocuChat offline?</summary>
@@ -721,7 +753,7 @@
         </details>
         <details>
           <summary>What devices are supported?</summary>
-          <p>iPhone 15 Pro+, M-series iPads, and Macs with Apple silicon running iOS/iPadOS 18+ or macOS 15+.</p>
+          <p>iPhone 15 Pro+, M-series iPads, and Macs with Apple silicon running iOS/iPadOS 26+ or macOS 26+.</p>
         </details>
       </div>
       <p style="margin-top: 20px; text-align: center;">
@@ -733,7 +765,9 @@
       <h2>Ready to keep your documents private?</h2>
       <p class="muted">Download DocuChat and experience secure, on-device AI for study and research.</p>
       <div class="list-inline" style="justify-content: center;">
-        <a class="btn primary" href="#">App Store (iOS / iPadOS)</a>
+        <a href="#" style="display: inline-block; text-decoration: none;">
+          <img src="Images/downloadOnAppStore.png" alt="Download on the App Store" style="height: 100px; width: auto; display: block;" />
+        </a>
       </div>
       <p class="note" style="margin-top: 12px;">No account required. Start free - upgrade anytime.</p>
     </section>
