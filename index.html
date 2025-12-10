@@ -157,6 +157,10 @@
       flex-wrap: wrap;
     }
 
+    .actions-mobile {
+      display: none;
+    }
+
     .btn {
       border: 1px solid var(--border);
       background: var(--card);
@@ -543,6 +547,13 @@
       .actions {
         display: none;
       }
+      .actions-mobile {
+        display: flex;
+        width: 100%;
+        gap: 8px;
+        margin-top: 8px;
+        flex-wrap: wrap;
+      }
       .hero {
         margin-top: 24px;
       }
@@ -599,7 +610,7 @@
         </div>
         <div class="tagline">
           <span class="chip">No tracking. No uploads.</span>
-          <span class="chip">Citations for answer</span>
+          <span class="chip">Citations for answers</span>
           <span class="chip">Markdown tables in chat</span>
           <span class="chip">Persistent chat per doc</span>
         </div>
@@ -808,7 +819,7 @@
       <p class="muted">Download DocuChat and experience secure, on-device AI for study and research.</p>
       <div class="list-inline" style="justify-content: center;">
         <a href="#" style="display: inline-block; text-decoration: none;">
-          <img src="Images/downloadOnAppStore.png" alt="Download on the App Store" style="height: 100px; width: auto; display: block;" />
+          <img src="Images/app-store-coming-soon.png" alt="Download on the App Store" style="height: 100px; width: auto; display: block;" />
         </a>
       </div>
       <p class="note" style="margin-top: 12px;">No account required. Start free - upgrade anytime.</p>
@@ -843,6 +854,12 @@
     if (navToggle && navLinks) {
       navToggle.addEventListener("click", () => {
         navLinks.classList.toggle("show");
+      });
+      const navAnchors = navLinks.querySelectorAll("a");
+      navAnchors.forEach((anchor) => {
+        anchor.addEventListener("click", () => {
+          navLinks.classList.remove("show");
+        });
       });
     }
   </script>
